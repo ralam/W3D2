@@ -59,7 +59,8 @@ INSERT INTO
   questions(title, body, author_id)
 VALUES
   ('What did you eat for breakfast?', 'Tell me', (SELECT id FROM users WHERE fname = 'Barack')),
-  ('What is your favorite animal?', 'Lions or tigers', (SELECT id FROM users WHERE fname = 'George'));
+  ('What is your favorite animal?', 'Lions or tigers', (SELECT id FROM users WHERE fname = 'George')),
+  ('Mac or PC', 'Pick one', (SELECT id FROM users WHERE fname = 'Barack'));
 
 INSERT INTO
   question_follows(user_id, question_id)
@@ -74,4 +75,4 @@ VALUES
 INSERT INTO
   questions_likes(user_id, question_id)
 VALUES
-  (1, 1), (2, 1), (3, 2);
+  (1, 1), (2, 1), (3, 2), (3, 1);

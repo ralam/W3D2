@@ -37,4 +37,18 @@ class User
   def liked_questions
     QuestionLike.liked_questions_for_user_id(@id)
   end
+
+  def average_karma
+    result = QuestionsDatabase.instance.execute(<<-SQL, @id)
+      SELECT SUM(l2.likes_for_one_question)/CAST(COUNT(q.id) AS FLOAT (5,2))
+      FROM questions q
+      LEFT JOIN (
+        SELECT l.question_id, COUNT(l.id) AS likes_for_one_question
+        FROM questions_likes l
+        GROUP BY l.question_id) AS l2 ON l2.question_id = q.id
+      WHERE q.author_id = ?
+    SQL
+
+    result.first.values.first
+  end
 end

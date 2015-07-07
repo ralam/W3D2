@@ -19,4 +19,7 @@ class QuestionsDatabase < SQLite3::Database
 end
 
 
-p QuestionLike.liked_questions_for_user_id(1)
+george = User.find_by_id(1)
+obama = User.find_by_id(3)
+p george.average_karma
+p obama.average_karma

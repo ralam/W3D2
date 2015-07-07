@@ -13,6 +13,10 @@ class Question
     results.map { |result| self.new(result)}
   end
 
+  def self.most_followed(n)
+    QuestionFollow.most_followed_questions(n)
+  end
+
   attr_accessor :id, :title, :body, :author_id
 
   def initialize(options = {})
@@ -33,4 +37,13 @@ class Question
   def followers
     QuestionFollow.followers_for_question_id(@id)
   end
+
+  def likers
+    QuestionLike.likers_for_question_id(@id)
+  end
+
+  def num_likes
+    QuestionLike.num_likes_for_question_id(@id)
+  end
+
 end

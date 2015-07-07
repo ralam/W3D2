@@ -19,8 +19,4 @@ class QuestionsDatabase < SQLite3::Database
 end
 
 
-user = User.find_by_id(1)
-p user.followed_questions_for_user_id
-
-question = Question.find_by_id(2)
-p question.followers
+p QuestionLike.liked_questions_for_user_id(1)

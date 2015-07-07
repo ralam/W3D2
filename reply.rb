@@ -6,21 +6,35 @@ class Reply
 
   def self.find_by_id(given_id)
     result = QuestionsDatabase.instance.execute(<<-SQL, given_id)
-      SELECT * FROM #{table_name} WHERE id = ?
+      SELECT
+        *
+      FROM
+        #{table_name}
+      WHERE id = ?
     SQL
     self.new(result.first)
   end
 
   def self.find_by_user_id(user_id)
     results = QuestionsDatabase.instance.execute(<<-SQL, user_id)
-      SELECT * FROM #{table_name} WHERE user_id = ?
+      SELECT
+        *
+      FROM
+        #{table_name}
+      WHERE
+        user_id = ?
     SQL
     results.map { |result| self.new(result)}
   end
 
   def self.find_by_question_id(question_id)
     results = QuestionsDatabase.instance.execute(<<-SQL, question_id)
-      SELECT * FROM #{table_name} WHERE question_id = ?
+      SELECT
+        *
+      FROM
+        #{table_name}
+      WHERE
+        question_id = ?
     SQL
     results.map { |result| self.new(result) }
   end
@@ -63,7 +77,8 @@ class Reply
         replies
       SET
         user_id = :user_id, question_id = :question_id, body = :body, parent_id = :parent_id
-      WHERE id = :id
+      WHERE
+        id = :id
       SQL
     end
   end

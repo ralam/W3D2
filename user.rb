@@ -2,14 +2,24 @@ class User
 
   def self.find_by_id(given_id)
     result = QuestionsDatabase.instance.execute(<<-SQL, given_id)
-      SELECT * FROM users WHERE id = ?
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        id = ?
     SQL
     self.new(result.first)
   end
 
   def self.find_by_name(fname, lname)
     results = QuestionsDatabase.instance.execute(<<-SQL, fname, lname)
-      SELECT * FROM users WHERE fname = ? AND lname = ?
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        fname = ? AND lname = ?
     SQL
     results.map { |result| self.new(result)}
   end
@@ -40,13 +50,19 @@ class User
 
   def average_karma
     result = QuestionsDatabase.instance.execute(<<-SQL, @id)
-      SELECT SUM(l2.likes_for_one_question)/CAST(COUNT(q.id) AS FLOAT (5,2))
-      FROM questions q
+      SELECT
+        SUM(l2.likes_for_one_question)/CAST(COUNT(q.id) AS FLOAT (5,2))
+      FROM
+        questions q
       LEFT JOIN (
-        SELECT l.question_id, COUNT(l.id) AS likes_for_one_question
-        FROM questions_likes l
-        GROUP BY l.question_id) AS l2 ON l2.question_id = q.id
-      WHERE q.author_id = ?
+        SELECT
+          l.question_id, COUNT(l.id) AS likes_for_one_question
+        FROM
+          questions_likes l
+        GROUP BY
+          l.question_id) AS l2 ON l2.question_id = q.id
+      WHERE
+        q.author_id = ?
     SQL
 
     result.first.values.first
@@ -72,5 +88,4 @@ class User
       SQL
     end
   end
-
 end

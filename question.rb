@@ -1,14 +1,24 @@
 class Question
   def self.find_by_id(given_id)
     result = QuestionsDatabase.instance.execute(<<-SQL, given_id)
-      SELECT * FROM questions WHERE id = ?
+      SELECT
+        *
+      FROM
+        questions
+      WHERE
+        id = ?
     SQL
     self.new(result.first)
   end
 
   def self.find_by_author_id(author_id)
     results = QuestionsDatabase.instance.execute(<<-SQL, author_id)
-      SELECT * FROM questions WHERE author_id = ?
+      SELECT
+        *
+      FROM
+        questions
+      WHERE
+        author_id = ?
     SQL
     results.map { |result| self.new(result)}
   end
@@ -66,7 +76,8 @@ class Question
         questions
       SET
         title = :title, body = :body, author_id = :author_id
-      WHERE id = :id
+      WHERE
+        id = :id
       SQL
     end
   end

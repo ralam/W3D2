@@ -19,8 +19,4 @@ class QuestionsDatabase < SQLite3::Database
 end
 
 newr = Reply.find_by_id(4)
-newr.body = 'Get off my lawn!'
-p newr
-
-newr.save
 p newr

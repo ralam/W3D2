@@ -6,11 +6,33 @@ class QuestionFollow
     self.new(result.first)
   end
 
+  def self.followers_for_question_id(question_id)
+    results = QuestionsDatabase.instance.execute(<<-SQL, question_id)
+      SELECT u.*
+      FROM question_follows q
+      JOIN users u ON u.id = q.user_id
+      WHERE q.question_id = ?
+    SQL
+    results.map { |result| User.new(result)}
+  end
+
+  def self.followed_questions_for_user_id(user_id)
+    results = QuestionsDatabase.instance.execute(<<-SQL, user_id)
+      SELECT q.*
+      FROM question_follows qf
+      JOIN questions q ON q.id = qf.question_id
+      WHERE qf.user_id = ?
+    SQL
+
+    results.map { |result| Question.new(result) }
+  end
+
   attr_accessor :id, :user_id, :question_id
   def initialize(options = {})
-    # byebug
     @id = options['id']
     @user_id = options['user_id']
     @question_id = options['question_id']
   end
+
+
 end

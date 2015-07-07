@@ -19,7 +19,8 @@ class QuestionsDatabase < SQLite3::Database
 end
 
 
-reply = Reply.find_by_id(3)
-p reply.author
-p reply.question
-p reply.parent_reply
+user = User.find_by_id(1)
+p user.followed_questions_for_user_id
+
+question = Question.find_by_id(2)
+p question.followers

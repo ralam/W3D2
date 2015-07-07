@@ -51,4 +51,26 @@ class User
 
     result.first.values.first
   end
+
+  def save
+    if @id.nil?
+      QuestionsDatabase.instance.execute(<<-SQL, fname: @fname, lname: @lname)
+      INSERT INTO
+        users(fname, lname)
+      VALUES
+        (:fname, :lname)
+      SQL
+
+      @id = QuestionsDatabase.instance.last_insert_row_id
+    else
+      QuestionsDatabase.instance.execute(<<-SQL, fname: @fname, lname: @lname, id: @id)
+      UPDATE
+        users
+      SET
+        fname = :fname, lname = :lname
+      WHERE id = :id
+      SQL
+    end
+  end
+
 end

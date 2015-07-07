@@ -18,8 +18,9 @@ class QuestionsDatabase < SQLite3::Database
   end
 end
 
+newr = Reply.find_by_id(4)
+newr.body = 'Get off my lawn!'
+p newr
 
-george = User.find_by_id(1)
-obama = User.find_by_id(3)
-p george.average_karma
-p obama.average_karma
+newr.save
+p newr

@@ -47,4 +47,24 @@ class Reply
     Reply.find_by_id(@parent_id)
   end
 
+  def save
+    if @id.nil?
+      QuestionsDatabase.instance.execute(<<-SQL, user_id: @user_id, question_id: @question_id, body: @body, parent_id: @parent_id)
+      INSERT INTO
+        replies(user_id, question_id, body, parent_id)
+      VALUES
+        (:user_id, :question_id, :body, :parent_id)
+      SQL
+
+      @id = QuestionsDatabase.instance.last_insert_row_id
+    else
+      QuestionsDatabase.instance.execute(<<-SQL, user_id: @user_id, question_id: @question_id, body: @body, parent_id: @parent_id, id: @id)
+      UPDATE
+        replies
+      SET
+        user_id = :user_id, question_id = :question_id, body = :body, parent_id = :parent_id
+      WHERE id = :id
+      SQL
+    end
+  end
 end

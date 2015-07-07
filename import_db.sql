@@ -12,8 +12,8 @@ CREATE TABLE questions (
   id INTEGER PRIMARY KEY,
   title VARCHAR(255),
   body TEXT,
-  author INTEGER NOT NULL,
-  FOREIGN KEY (author) REFERENCES users(id)
+  author_id INTEGER NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS question_follows;
@@ -56,7 +56,7 @@ VALUES
 
 
 INSERT INTO
-  questions(title, body, author)
+  questions(title, body, author_id)
 VALUES
   ('What did you eat for breakfast?', 'Tell me', (SELECT id FROM users WHERE fname = 'Barack')),
   ('What is your favorite animal?', 'Lions or tigers', (SELECT id FROM users WHERE fname = 'George'));

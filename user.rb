@@ -1,4 +1,11 @@
-class User
+require "active_record"
+
+class User < ActiveRecord::Base
+  # include Save
+
+  def self.table_name
+    "users"
+  end
 
   def self.find_by_id(given_id)
     result = QuestionsDatabase.instance.execute(<<-SQL, given_id)

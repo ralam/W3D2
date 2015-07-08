@@ -18,5 +18,6 @@ class QuestionsDatabase < SQLite3::Database
   end
 end
 
-newr = Reply.find_by_id(4)
-p newr
+doug = User.new({"fname" => "Doug", "lname" => "Smith"})
+p doug
+doug.save!

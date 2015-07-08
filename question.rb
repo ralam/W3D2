@@ -1,4 +1,9 @@
 class Question
+
+  def self.table_name
+    "questions"
+  end
+
   def self.find_by_id(given_id)
     result = QuestionsDatabase.instance.execute(<<-SQL, given_id)
       SELECT

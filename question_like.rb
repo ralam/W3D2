@@ -72,7 +72,7 @@ class QuestionLike
   end
 
   attr_accessor :id, :user_id, :question_id
-  
+
   def initialize(options = {})
     @id = options['id']
     @user_id = options['user_id']
